@@ -1,0 +1,7 @@
+Mamiferos*/
+Dataset/
+cache/
+pesos/
+__pycache__
+procesado/
+.DS_Store

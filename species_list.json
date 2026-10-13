@@ -1,0 +1,264 @@
+{
+  "count": 36,
+  "criterio": {
+    "place_id": 12744,
+    "taxon_id": 40151,
+    "min_fotos": 400,
+    "max_especies": 200,
+    "orden": "obs_tolima"
+  },
+  "species": [
+    {
+      "name": "Sciurus granatensis",
+      "taxon_id": 46010,
+      "familia": "Sciuridae",
+      "fotos_estimadas": 8578,
+      "scraped": false
+    },
+    {
+      "name": "Sylvilagus andinus",
+      "taxon_id": 1353295,
+      "familia": "Leporidae",
+      "fotos_estimadas": 958,
+      "scraped": false
+    },
+    {
+      "name": "Saguinus leucopus",
+      "taxon_id": 43385,
+      "familia": "Callitrichidae",
+      "fotos_estimadas": 1124,
+      "scraped": false
+    },
+    {
+      "name": "Dasyprocta punctata",
+      "taxon_id": 43712,
+      "familia": "Dasyproctidae",
+      "fotos_estimadas": 17379,
+      "scraped": false
+    },
+    {
+      "name": "Cerdocyon thous",
+      "taxon_id": 42087,
+      "familia": "Canidae",
+      "fotos_estimadas": 5474,
+      "scraped": false
+    },
+    {
+      "name": "Alouatta seniculus",
+      "taxon_id": 566513,
+      "familia": "Atelidae",
+      "fotos_estimadas": 2964,
+      "scraped": false
+    },
+    {
+      "name": "Didelphis marsupialis",
+      "taxon_id": 42649,
+      "familia": "Didelphidae",
+      "fotos_estimadas": 4273,
+      "scraped": false
+    },
+    {
+      "name": "Tremarctos ornatus",
+      "taxon_id": 41657,
+      "familia": "Ursidae",
+      "fotos_estimadas": 1523,
+      "scraped": false
+    },
+    {
+      "name": "Choloepus hoffmanni",
+      "taxon_id": 47101,
+      "familia": "Choloepodidae",
+      "fotos_estimadas": 8310,
+      "scraped": false
+    },
+    {
+      "name": "Dasypus fenestratus",
+      "taxon_id": 1647420,
+      "familia": "Dasypodidae",
+      "fotos_estimadas": 2211,
+      "scraped": false
+    },
+    {
+      "name": "Potos flavus",
+      "taxon_id": 41678,
+      "familia": "Procyonidae",
+      "fotos_estimadas": 2257,
+      "scraped": false
+    },
+    {
+      "name": "Pecari tajacu",
+      "taxon_id": 42113,
+      "familia": "Tayassuidae",
+      "fotos_estimadas": 21723,
+      "scraped": false
+    },
+    {
+      "name": "Desmodus rotundus",
+      "taxon_id": 41168,
+      "familia": "Phyllostomidae",
+      "fotos_estimadas": 1600,
+      "scraped": false
+    },
+    {
+      "name": "Dasyprocta fuliginosa",
+      "taxon_id": 43715,
+      "familia": "Dasyproctidae",
+      "fotos_estimadas": 1119,
+      "scraped": false
+    },
+    {
+      "name": "Sciurus pucheranii",
+      "taxon_id": 46007,
+      "familia": "Sciuridae",
+      "fotos_estimadas": 439,
+      "scraped": false
+    },
+    {
+      "name": "Tamandua mexicana",
+      "taxon_id": 47105,
+      "familia": "Myrmecophagidae",
+      "fotos_estimadas": 4266,
+      "scraped": false
+    },
+    {
+      "name": "Nasua olivacea",
+      "taxon_id": 1431872,
+      "familia": "Procyonidae",
+      "fotos_estimadas": 456,
+      "scraped": false
+    },
+    {
+      "name": "Phyllostomus hastatus",
+      "taxon_id": 41078,
+      "familia": "Phyllostomidae",
+      "fotos_estimadas": 492,
+      "scraped": false
+    },
+    {
+      "name": "Rhynchonycteris naso",
+      "taxon_id": 41396,
+      "familia": "Emballonuridae",
+      "fotos_estimadas": 5679,
+      "scraped": false
+    },
+    {
+      "name": "Eira barbara",
+      "taxon_id": 41774,
+      "familia": "Mustelidae",
+      "fotos_estimadas": 3214,
+      "scraped": false
+    },
+    {
+      "name": "Puma concolor",
+      "taxon_id": 42007,
+      "familia": "Felidae",
+      "fotos_estimadas": 16617,
+      "scraped": false
+    },
+    {
+      "name": "Mazama americana",
+      "taxon_id": 42176,
+      "familia": "Cervidae",
+      "fotos_estimadas": 487,
+      "scraped": false
+    },
+    {
+      "name": "Cuniculus paca",
+      "taxon_id": 74257,
+      "familia": "Cuniculidae",
+      "fotos_estimadas": 4276,
+      "scraped": false
+    },
+    {
+      "name": "Herpailurus yagouaroundi",
+      "taxon_id": 197781,
+      "familia": "Felidae",
+      "fotos_estimadas": 1451,
+      "scraped": false
+    },
+    {
+      "name": "Neogale frenata",
+      "taxon_id": 1264431,
+      "familia": "Mustelidae",
+      "fotos_estimadas": 8915,
+      "scraped": false
+    },
+    {
+      "name": "Oryctolagus cuniculus",
+      "taxon_id": 43151,
+      "familia": "Leporidae",
+      "fotos_estimadas": 52621,
+      "scraped": false
+    },
+    {
+      "name": "Tapirus pinchaque",
+      "taxon_id": 43354,
+      "familia": "Tapiridae",
+      "fotos_estimadas": 508,
+      "scraped": false
+    },
+    {
+      "name": "Saimiri cassiquiarensis",
+      "taxon_id": 1368519,
+      "familia": "Cebidae",
+      "fotos_estimadas": 1006,
+      "scraped": false
+    },
+    {
+      "name": "Lontra annectens",
+      "taxon_id": 1596108,
+      "familia": "Mustelidae",
+      "fotos_estimadas": 1168,
+      "scraped": false
+    },
+    {
+      "name": "Artibeus jamaicensis",
+      "taxon_id": 41005,
+      "familia": "Phyllostomidae",
+      "fotos_estimadas": 2885,
+      "scraped": false
+    },
+    {
+      "name": "Carollia perspicillata",
+      "taxon_id": 41110,
+      "familia": "Phyllostomidae",
+      "fotos_estimadas": 514,
+      "scraped": false
+    },
+    {
+      "name": "Nasua nasua",
+      "taxon_id": 41670,
+      "familia": "Procyonidae",
+      "fotos_estimadas": 7058,
+      "scraped": false
+    },
+    {
+      "name": "Urocyon cinereoargenteus",
+      "taxon_id": 42076,
+      "familia": "Canidae",
+      "fotos_estimadas": 58772,
+      "scraped": false
+    },
+    {
+      "name": "Odocoileus virginianus",
+      "taxon_id": 42223,
+      "familia": "Cervidae",
+      "fotos_estimadas": 520282,
+      "scraped": false
+    },
+    {
+      "name": "Didelphis pernigra",
+      "taxon_id": 42648,
+      "familia": "Didelphidae",
+      "fotos_estimadas": 795,
+      "scraped": false
+    },
+    {
+      "name": "Myrmecophaga tridactyla",
+      "taxon_id": 47107,
+      "familia": "Myrmecophagidae",
+      "fotos_estimadas": 3784,
+      "scraped": false
+    }
+  ]
+}
