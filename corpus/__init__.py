@@ -4,7 +4,7 @@ import csv
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
-IMAGENES = BASE / "Mamiferos"
+IMAGENES = BASE / "Insectos"
 CACHE = BASE / "cache"
 PESOS = BASE / "pesos"
 PROCESADO = BASE / "procesado"

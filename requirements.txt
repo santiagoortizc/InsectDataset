@@ -1,0 +1,9 @@
+requests
+pandas
+numpy
+opencv-python
+matplotlib
+jupyter
+# solo para la detección y el filtro CLIP del notebook 02
+ultralytics
+clip @ git+https://github.com/ultralytics/CLIP.git

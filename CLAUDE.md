@@ -4,7 +4,7 @@ Guía para trabajar en este repositorio.
 
 ## Qué es este repositorio
 
-Construye un corpus de mamíferos de bosque del Tolima: selección de especies, descarga desde
+Construye un corpus de insectos plaga del Tolima: selección de especies, descarga desde
 iNaturalist y preprocesamiento. **No entrena modelos**; el repositorio de modelado consume
 los artefactos y la dependencia va en un solo sentido.
 
@@ -29,33 +29,33 @@ Dependencias implícitas: `requests`, `pandas`, `numpy`, `opencv-python`, `jupyt
 lectura/escritura de CSV; todo lo demás está inline donde se ejecuta, para no tener que
 saltar a un módulo al depurar.
 
-- [00_especies.ipynb](00_especies.ipynb) — inventario de mamíferos research-grade del Tolima,
-  fotos licenciadas estimadas por especie y filtro de bosque. Escribe `species_list.json` con
+- [00_especies.ipynb](00_especies.ipynb) — inventario de insectos research-grade del Tolima,
+  fotos licenciadas estimadas por especie y filtro de plaga agricola. Escribe `species_list.json` con
   el `taxon_id` de cada especie.
 - [01_scraping.ipynb](01_scraping.ipynb) — paginación de la API, descarga incremental a
-  `Mamiferos/` y `metadata.csv`, e inventario del techo disponible por especie.
-- [02_preprocesamiento.ipynb](02_preprocesamiento.ipynb) — cinco etapas que dejan su
+  `Insectos/` y `metadata.csv`, e inventario del techo disponible por especie.
+- [02_preprocesamiento.ipynb](02_preprocesamiento.ipynb) — seis etapas que dejan su
   resultado en disco y saltan lo ya hecho, así que pueden correrse en días distintos:
-  detección → métricas → auditoría → recortes → reparto y manifiesto.
+  detección → métricas → insecto visible (CLIP) → auditoría → recortes → reparto y manifiesto.
 - [03_eda.ipynb](03_eda.ipynb) — análisis del corpus y de los umbrales de calidad.
 
 ### Selección de especies
 
 Las especies salen del Tolima; las fotos salen del mundo entero (restringirlas al
-departamento dejaría decenas por clase). iNaturalist no etiqueta hábitat, así que "bosque"
-se cura a mano: el notebook 00 escribe `especies_bosque.csv` y se marca con `1` la columna
-`bosque`. Hay que excluir domésticas y comensales (perro, gato, ganado, caballo, cabra, rata).
+departamento dejaría decenas por clase). iNaturalist no etiqueta plaga agricola, así que 
+se cura a mano: el notebook 00 escribe `especies_plaga.csv` y se marca con `1` la columna
+`plaga`.
 Si el CSV está guardado desde Excel viene en cp1252; el notebook lo lee igual.
 
 ### Artefactos
 
 | Ruta                    | Contenido                                                      | En git |
 | ----------------------- | -------------------------------------------------------------- | ------ |
-| `Mamiferos/`            | imágenes descargadas                                           | no     |
-| `cache/`                | inventario del Tolima, detecciones y métricas, para reanudar   | no     |
+| `Insectos/`             | imágenes descargadas                                           | no     |
+| `cache/`                | inventario del Tolima, detecciones, métricas y puntajes CLIP   | no     |
 | `pesos/`                | YOLO-World y el codificador de CLIP                            | no     |
 | `procesado/`            | recortes aceptados                                             | no     |
-| `especies_bosque.csv`   | curación manual de especies de bosque                          | sí     |
+| `especies_plaga.csv`    | curación manual de especies plaga agricola                     | sí     |
 | `species_list.json`     | especies seleccionadas con su `taxon_id`                       | sí     |
 | `metadata.csv`          | una fila por foto: licencia, atribución, observación, sha256   | sí     |
 | `auditoria.csv`         | una fila por foto: recorte, métricas, veredicto y motivo       | sí     |
@@ -82,22 +82,35 @@ permite reconstruirlas y verificar los bytes.
   representante conservado ya haya pasado los filtros de calidad.
 - **Semilla combinada con la especie**: agregar una especie no altera el reparto de las que
   ya estaban. No cambiar a una sola semilla global.
+- **Reparto por observación**: cada `observation_id` cae entero en un solo split, así fotos del
+  mismo individuo no pasan de train a evaluación (antes se fugaba el 42 % del test). El 02 mide
+  la fuga al final y debe dar 0.
+- **`species_list.json` decide qué entra al 02**: las carpetas de `Insectos/` y las filas en
+  caché de especies retiradas se ignoran. Para retirar una especie basta desmarcar `plaga` y
+  regenerar la lista con el 00; no hace falta borrar sus imágenes ni el caché.
+- **Filtro CLIP solo en `FILTRO_CLIP`**: descarta como `sin_insecto_visible` los recortes de
+  hormigas que CLIP ve como hormiguero, suelo u hojarasca (`UMBRAL_CLIP = 0.30`). Los textos
+  hablan de hormigas; aplicarlo a otras clases las vaciaría. Cambiar `TEXTOS_CLIP` obliga a
+  borrar `cache/clip.csv`.
+- **Clase ≠ especie solo vía `FUSIONES`**: el 02 agrupa especies que no se distinguen por foto
+  (hoy *Atta cephalotes* y *A. colombica* → `atta_spp`). La auditoría guarda la especie real;
+  `procesado/` y el manifiesto usan la clase.
 - **El manifiesto se escribe al final**: abandonar el notebook a mitad no deja un reparto
   a medias en el registro.
 
 ## Problemas conocidos
 
-- **Umbrales sin recalibrar**: `UMBRALES` y `AREA_MIN_RELATIVA` del notebook 02 se fijaron para
-  mariposas. En mamíferos de bosque el pelaje oscuro, las cámaras trampa nocturnas o infrarrojas
-  y los animales pequeños en el encuadre pueden dispararlos. Recalibrar una vez, a la vista del
-  notebook 03, y congelar los nuevos literales.
-- **Desbalance entre clases**: las fotos estimadas por especie van de unos 440 a más de 500 mil.
-  `POR_ESPECIE` en el notebook 01 limita la descarga.
-- **Detección sin validar**: los prompts de YOLO-World (`mammal`, `animal`, `bat`) no se han
-  probado contra fotos reales; medir cuántas quedan sin caja antes de confiar en ellos.
-- **Fuga entre splits**: el reparto es por foto, no por observación; fotos del mismo individuo
-  caen en splits distintos. El notebook 02 la mide al final; corregirlo exige repartir agrupando
-  por `observation_id`.
-- **Especies escasas**: pocos mamíferos del Tolima superan las 400 fotos licenciadas. Subir
-  el tope no las mueve; solo crecerían incluyendo observaciones sin identificación confirmada,
-  a cambio de ruido de etiqueta.
+- **Umbrales a medio recalibrar**: `fracSaturados` subió de 0.06 a 0.12 porque descartaba alas
+  blancas y élitros brillantes (ascia, dione, strategus), no fotos quemadas. El resto de `UMBRALES`
+  y `AREA_MIN_RELATIVA` siguen siendo los de mariposas; revisar a la vista del notebook 03.
+- **Desbalance entre clases**: las fotos estimadas por especie van de unas decenas a cientos de
+  miles, porque las plagas comunes están sobrerrepresentadas. `POR_ESPECIE` en el notebook 01
+  limita la descarga.
+- **Detección débil en hormigas, orugas y agallas**: con `insect`, `caterpillar`, `beetle` queda
+  sin caja el 14 % del corpus, ~36 % en atta y ~30 % en erinnyis e iatrophobia. Agregar `ant` y
+  `larva` se probó: en hormigas recupera sobre todo suelo y senderos sin hormiga visible. En iatrophobia la
+  caja encuadra la agalla de la yuca: se conserva como clase de síntoma. Allomerus auropunctatus
+  se retiró porque las hormigas apenas se veían en los recortes.
+- **Variación por estadio**: huevo, larva, pupa y adulto de una misma plaga se ven como
+  especies distintas, y las clases pueden quedar mezcladas o desbalanceadas por estadio. Decidir
+  si se etiqueta por estadio o solo por especie.
